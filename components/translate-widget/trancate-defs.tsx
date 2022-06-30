@@ -49,21 +49,23 @@ const TrancateDefs: React.FC<{
 
       {defs.length > rows && (
         <div
-          className="flex items-center justify-end hover:opacity-80 cursor-pointer"
+          className="text-right"
           onClick={() => {
             setIsOpen(!isOpen)
           }}>
-          {isOpen ? (
-            <>
-              <ChevronUpIcon className="w-5 h-5" />
-              收起更多
-            </>
-          ) : (
-            <>
-              <ChevronDownIcon className="w-5 h-5" />
-              查看更多
-            </>
-          )}
+          <span className="hover:opacity-80 cursor-pointer text-primary inline-flex">
+            {isOpen ? (
+              <>
+                <ChevronUpIcon className="w-5 h-5" />
+                收起更多
+              </>
+            ) : (
+              <>
+                <ChevronDownIcon className="w-5 h-5" />
+                查看更多
+              </>
+            )}
+          </span>
         </div>
       )}
     </div>

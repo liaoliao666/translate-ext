@@ -27,7 +27,7 @@ class BingTranslator extends Translator {
     const qdef = doc.querySelector(".qdef")
     if (!qdef) {
       throw new Error(
-        `${this.getTitle()}：无翻译结果。\n如果你使用了代理软件，请关闭代理或将必应词典加入直连名单后重试。`
+        `${this.getTitle()}：无翻译结果。\n如果你使用了代理软件，请关闭代理或将必应词典加入直连名单后重试`
       )
     }
 

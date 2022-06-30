@@ -60,7 +60,7 @@ function a(u) {
     C = t
   })
   const D = document.createRange()
-  return D.setStart(r, s), D.setEnd(E, a), D
+  return D.setStart?.(r, s), D.setEnd?.(E, a), D
 }
 
 const i =

@@ -4,8 +4,8 @@ import { QueryClient, QueryClientProvider } from "react-query"
 
 import DarkModeProvider from "~components/dark-mode/dark-mode-provider"
 import TranslateWidget from "~components/translate-widget"
+import { sendRequest } from "~messages"
 import { container, floatingContainer } from "~utils/container"
-import { sendRequest } from "~utils/messages"
 import { request } from "~utils/request"
 
 request.defaultConfig({ adapter: sendRequest })
@@ -42,8 +42,8 @@ const App = () => {
 }
 
 export const config: PlasmoContentScript = {
-  // matches: ["<all_urls>"],
-  matches: ["https://dev.to/*"],
+  matches: ["<all_urls>"],
+  // matches: ["https://github.com/*"],
   all_frames: true
 }
 

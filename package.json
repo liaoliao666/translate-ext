@@ -1,28 +1,27 @@
 {
   "name": "translate-ext",
-  "displayName": "Translate ext",
-  "version": "0.0.0",
-  "description": "A basic Plasmo extension.",
+  "displayName": "小划词",
+  "version": "0.0.1",
+  "description": "简单、高效和好看的划词翻译浏览器插件",
   "author": "liaoxuan",
   "scripts": {
-    "dev": "bash scripts/dev.sh",
-    "build": "bash scripts/build.sh"
+    "dev": "plasmo dev",
+    "build": "plasmo build"
   },
   "dependencies": {
     "@floating-ui/react-dom": "^0.7.2",
-    "@headlessui/react": "^1.6.5",
     "@heroicons/react": "^1.0.6",
     "@plasmohq/storage": "^0.6.0",
     "clsx": "^1.1.1",
     "jotai": "^1.7.2",
     "lodash-es": "^4.17.21",
-    "plasmo": "^0.43.6",
     "react": "18.2.0",
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "18.2.0",
     "react-error-boundary": "^3.1.4",
     "react-hook-form": "^7.32.2",
     "react-query": "4.0.0-beta.23",
+    "react-spring": "^9.4.5",
     "react-use": "^17.4.0"
   },
   "devDependencies": {
@@ -34,6 +33,7 @@
     "@types/react-dom": "18.0.5",
     "autoprefixer": "^10.4.7",
     "daisyui": "^2.15.4",
+    "plasmo": "^0.43.6",
     "postcss": "^8.4.14",
     "prettier": "2.7.0",
     "tailwindcss": "^3.1.3",

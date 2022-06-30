@@ -5,18 +5,15 @@ import { find, isEmpty } from "lodash-es"
 import { useEffect } from "react"
 import { useState } from "react"
 import type { ReactNode } from "react"
-import { createPortal } from "react-dom"
 import { useQuery } from "react-query"
 
 import { bingTranslator, googleTranslator } from "~/utils/translator"
 import { isWord } from "~/utils/validators"
 import SwitchDarkMode from "~components/dark-mode/switch-dark-mode"
 import { settingsAtom } from "~store/settings"
-import { floatingContainer } from "~utils/container"
 
 import AddWord from "./add-word"
-// import AddWord from './add-word'
-import { UKIcon, USIcon } from "./icons"
+import { GitHubIcon, UKIcon, USIcon } from "./icons"
 import { playSound } from "./play-sound"
 import SettingsForm from "./settings-form"
 import TrancateDefs from "./trancate-defs"
@@ -88,7 +85,7 @@ const TranslatePannel: React.FC<TranslatePannelProps> = ({
         try {
           const src = await find(data.phonetics, {
             type: autoplay
-          }).getAudioSrc()
+          })?.getAudioSrc?.()
 
           if (src) {
             setPronouncedWords(new Set([...pronouncedWords, word]))
@@ -168,13 +165,20 @@ const TranslatePannel: React.FC<TranslatePannelProps> = ({
           {data.isSentence && phonetics}
 
           <span className="ml-auto flex gap-2 justify-end items-center text-lg text-slate-400 dark:text-slate-500">
+            <GitHubIcon
+              className="w-5 h-5 cursor-pointer hover:opacity-80 text-black dark:text-white"
+              onClick={() => {
+                window.open("https://github.com/liaoliao666/translate-ext")
+              }}
+            />
+
             {!data.isSentence && <AddWord word={word} />}
 
             <SwitchDarkMode />
 
             <AdjustmentsIcon
               className={clsx(
-                "hover:opacity-80 !align-middle w-6 h-6 cursor-pointer",
+                "hover:opacity-80 align-middle w-6 h-6 cursor-pointer",
                 isOpenSettingsForm && "!text-sky-500"
               )}
               onClick={() => {
@@ -199,27 +203,6 @@ const TranslatePannel: React.FC<TranslatePannelProps> = ({
           )}
           <TrancateDefs defs={data.translations} rows={5} />
         </div>
-      )}
-
-      {createPortal(
-        <div
-          onMouseUp={(ev) => ev.stopPropagation()}
-          style={{ zIndex: 1051 }}
-          className={clsx("modal", isOpenSettingsForm && "modal-open")}>
-          <div className="modal-box">
-            <h3 className="font-bold text-lg">设置</h3>
-            {isOpenSettingsForm && (
-              <SettingsForm
-                defaultValues={settings}
-                onSubmit={(values) => {
-                  console.log("values", values)
-                }}
-                onCancel={() => setIsOpenSettingsForm(false)}
-              />
-            )}
-          </div>
-        </div>,
-        floatingContainer
       )}
     </div>
   )

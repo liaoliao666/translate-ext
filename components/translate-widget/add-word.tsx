@@ -14,7 +14,7 @@ export default function AddWord({ word }: { word: string }) {
     <HeartIcon
       className={clsx(
         hadCollected ? "text-[#fadb14]" : "text-slate-400 dark:text-slate-500",
-        "w-5 h-5 hover:opacity-80 cursor-pointer"
+        "w-6 h-6 hover:opacity-80 cursor-pointer"
       )}
       onClick={() => {
         setCollectedWords(

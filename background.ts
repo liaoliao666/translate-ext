@@ -1,4 +1,4 @@
-import { subscribeRequest } from "~utils/messages"
+import { subscribeRequest } from "~messages"
 import { request } from "~utils/request"
 
 subscribeRequest(request)

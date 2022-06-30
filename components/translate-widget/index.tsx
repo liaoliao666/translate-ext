@@ -22,7 +22,7 @@ const TranslateWidget = () => {
 
   const poperRef = useRef<HTMLDivElement>()
 
-  const translateButtonRef = useRef<HTMLDivElement>()
+  const translateButtonRef = useRef<SVGSVGElement>()
 
   useEvent("mouseup", async (ev) => {
     if (

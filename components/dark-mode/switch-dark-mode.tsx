@@ -55,9 +55,7 @@ const SwitchDarkMode = () => {
   })
 
   useEvent("mouseup", async (ev) => {
-    if (!refs.floating.current?.contains(ev.path[0])) {
-      setIsOpen(false)
-    }
+    setIsOpen(false)
   })
 
   return (
