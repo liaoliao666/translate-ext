@@ -14,6 +14,7 @@ function getSendMessageFn<Req, Res>(key: string) {
       type: key,
       payload: req
     }
+
     const result = (await chrome.runtime.sendMessage(
       action
     )) as MessageResponse<IRes>
@@ -40,7 +41,7 @@ function getSubscribeMessageFn<Req, Res>(key: string) {
           } catch (error) {
             sendResponse({
               error:
-                error instanceof Object
+                typeof action === "object" && action !== null
                   ? JSON.parse(
                       JSON.stringify(error, Object.getOwnPropertyNames(error))
                     )

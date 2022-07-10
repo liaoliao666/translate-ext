@@ -123,8 +123,6 @@ const TranslatePannel: React.FC<TranslatePannelProps> = ({
       <SettingsForm
         defaultValues={settings}
         onSubmit={(values) => {
-          console.log("values", values)
-
           setSettings(values)
           setIsOpenSettingsForm(false)
         }}

@@ -1,6 +1,7 @@
 import cssText from "data-text:~/style.css"
 import type { PlasmoContentScript } from "plasmo"
 import { QueryClient, QueryClientProvider } from "react-query"
+import "webextension-polyfill"
 
 import DarkModeProvider from "~components/dark-mode/dark-mode-provider"
 import TranslateWidget from "~components/translate-widget"

@@ -11,7 +11,7 @@ onload = () => {
   })
 
   document.querySelector("svg").addEventListener("mousedown", () => {
-    parent.postMessage(
+    window.parent.postMessage(
       {
         type: "EMIT_PLAY_SOUND"
       },

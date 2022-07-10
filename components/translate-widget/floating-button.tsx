@@ -4,6 +4,7 @@ import { forwardRef, useEffect, useRef, useState } from "react"
 import { useEvent, useLatest } from "react-use"
 import audioHtmlUrl from "url:./play-sound/audio.html"
 
+import { getSelection } from "~utils/get-selection"
 import { sleep } from "~utils/sleep"
 import { isEnglish } from "~utils/validators"
 
@@ -44,7 +45,7 @@ export default forwardRef<SVGSVGElement, FloatingButtonProps>(
 
       await sleep(0)
 
-      const text = window.getSelection()?.toString().trim() ?? ""
+      const { text } = getSelection(ev)
 
       if (
         !text ||
@@ -87,7 +88,7 @@ export default forwardRef<SVGSVGElement, FloatingButtonProps>(
       const listener = async (ev: MessageEvent) => {
         const action = ev.data
 
-        if (action instanceof Object) {
+        if (typeof action === "object" && action !== null) {
           if (action.type === "EMIT_PLAY_SOUND") {
             setClickedFrame(true)
             onConfirmRef.current()

@@ -1,9 +1,11 @@
+import { isFirefox } from "~utils/browser"
+
 import { atomWithAsyncStorage } from "./helper"
 
 export const collectedWordsAtom = atomWithAsyncStorage<string[]>(
   "collectedWords",
   [],
   {
-    storageArea: "sync"
+    storageArea: isFirefox() ? "local" : "sync"
   }
 )

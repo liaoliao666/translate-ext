@@ -1,3 +1,4 @@
+import { isFirefox } from "~utils/browser"
 import type { Phonetic } from "~utils/translator"
 
 import { atomWithAsyncStorage } from "./helper"
@@ -18,6 +19,6 @@ export const settingsAtom = atomWithAsyncStorage<Settings>(
     definition: true
   },
   {
-    storageArea: "sync"
+    storageArea: isFirefox() ? "local" : "sync"
   }
 )

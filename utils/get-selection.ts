@@ -96,7 +96,7 @@ export function getSelection(u: any): {
             if (u.nodeType === Node.DOCUMENT_FRAGMENT_NODE)
               return (
                 (l = (function (u) {
-                  const e = u.getSelection()
+                  const e = u?.getSelection()
                   if (!e || !e.rangeCount) return
                   const t = e.getRangeAt(0)
                   return t.collapsed ? void 0 : t

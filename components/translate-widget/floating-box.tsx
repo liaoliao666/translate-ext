@@ -10,7 +10,17 @@ import {
 } from "@floating-ui/react-dom"
 import clsx from "clsx"
 import React, { useLayoutEffect, useRef } from "react"
-import { animated, useTransition } from "react-spring"
+import { AnimatedComponent, animated, useTransition } from "react-spring"
+
+import { isFirefox } from "~utils/browser"
+
+const CompatibleDiv = ((props) =>
+  isFirefox() ? (
+    // @ts-ignored
+    <div {...props} />
+  ) : (
+    <animated.div {...props} />
+  )) as AnimatedComponent<"div">
 
 export default function FloatingBox({
   open,
@@ -64,6 +74,54 @@ export default function FloatingBox({
     delay: 200
   })
 
+  const child = (
+    <>
+      <div
+        className={clsx(
+          "overflow-y-auto flex-1 rounded-lg shadow-lg ring-1 ring-slate-900/5",
+          themeCls,
+          className
+        )}>
+        {children}
+      </div>
+      <div
+        ref={arrowRef}
+        style={{
+          left:
+            middlewareData.arrow?.x != null
+              ? `${middlewareData.arrow.x}px`
+              : undefined,
+          top:
+            middlewareData.arrow?.y != null
+              ? `${middlewareData.arrow.y}px`
+              : undefined,
+          [staticSide]: "-5px"
+        }}
+        className={clsx(
+          "absolute transform rotate-45 w-2.5 h-2.5 border-solid border-gray-300 dark:border-transparent",
+          placement === "top" ? "border-r border-b" : "border-l border-t",
+          themeCls
+        )}
+      />
+    </>
+  )
+
+  if (isFirefox())
+    return (
+      open && (
+        <div
+          style={{
+            position: strategy,
+            top: y ?? 0,
+            left: x ?? 0,
+            zIndex: 1049
+          }}
+          ref={floating}>
+          {child}
+        </div>
+      )
+    )
+
   return transitions(
     (animation, item) =>
       item && (
@@ -76,33 +134,7 @@ export default function FloatingBox({
             zIndex: 1049
           }}
           ref={floating}>
-          <div
-            className={clsx(
-              "overflow-y-auto flex-1 rounded-lg shadow-lg ring-1 ring-slate-900/5",
-              themeCls,
-              className
-            )}>
-            {children}
-          </div>
-          <div
-            ref={arrowRef}
-            style={{
-              left:
-                middlewareData.arrow?.x != null
-                  ? `${middlewareData.arrow.x}px`
-                  : undefined,
-              top:
-                middlewareData.arrow?.y != null
-                  ? `${middlewareData.arrow.y}px`
-                  : undefined,
-              [staticSide]: "-5px"
-            }}
-            className={clsx(
-              "absolute transform rotate-45 w-2.5 h-2.5 border-solid border-gray-300 dark:border-transparent",
-              placement === "top" ? "border-r border-b" : "border-l border-t",
-              themeCls
-            )}
-          />
+          {child}
         </animated.div>
       )
   )

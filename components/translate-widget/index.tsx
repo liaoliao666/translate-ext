@@ -7,6 +7,7 @@ import { useEvent, useKey } from "react-use"
 import Empty from "~components/empty"
 import { QuerySuspense } from "~components/query-suspense"
 import Skeleton from "~components/skeleton"
+import { isFirefox } from "~utils/browser"
 import { getSelection } from "~utils/get-selection"
 import { sleep } from "~utils/sleep"
 
@@ -25,10 +26,12 @@ const TranslateWidget = () => {
   const translateButtonRef = useRef<SVGSVGElement>()
 
   useEvent("mouseup", async (ev) => {
+    const target = isFirefox() ? ev.originalTarget : ev.path[0]
+
     if (
       !(
-        poperRef.current?.contains(ev.path[0]) ||
-        translateButtonRef.current?.contains(ev.path[0])
+        poperRef.current?.contains(target) ||
+        translateButtonRef.current?.contains(target)
       )
     ) {
       const selection = window.getSelection()
@@ -49,7 +52,9 @@ const TranslateWidget = () => {
         ref={translateButtonRef}
         onConfirm={(ev) => {
           const { text, referenceElement } = getSelection(ev)
+
           if (!text) return
+
           setWords([...words, text])
           if (!activeWord) {
             setReferenceElement(referenceElement)
