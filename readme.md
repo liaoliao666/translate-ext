@@ -4,7 +4,8 @@
 
 ## 下载
 
-[谷歌商店](https://chrome.google.com/webstore/detail/%E5%B0%8F%E5%88%92%E8%AF%8D/affjncigejkekfjhopfjchpabigmgljc)
+- [谷歌商店](https://chrome.google.com/webstore/detail/%E5%B0%8F%E5%88%92%E8%AF%8D/affjncigejkekfjhopfjchpabigmgljc)
+- [火狐商店](https://addons.mozilla.org/zh-CN/firefox/addon/%E5%B0%8F%E5%88%92%E8%AF%8D/)
 
 ## 预览
 
