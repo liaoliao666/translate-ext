@@ -18,17 +18,26 @@ class BingTranslator extends Translator {
     return bingIco
   }
 
-  async translate(text: string) {
+  async translate(text: string, isRetry: boolean = false) {
     const doc = await request<string>({
       url: `https://cn.bing.com/dict/search?q=${text}`,
       responseType: "text"
     }).then((text) => new DOMParser().parseFromString(text, "text/html"))
 
     const qdef = doc.querySelector(".qdef")
+
     if (!qdef) {
-      throw new Error(
-        `${this.getTitle()}：无翻译结果。\n如果你使用了代理软件，请关闭代理或将必应词典加入直连名单后重试`
-      )
+      if (!isRetry) {
+        await request<string>({
+          url: "https://cn.bing.com/dict/?mkt=zh-cn",
+          responseType: "text"
+        }).then((text) => new DOMParser().parseFromString(text, "text/html"))
+        return this.translate(text, true)
+      } else {
+        throw new Error(
+          `${this.getTitle()}：无翻译结果。\n如果你使用了代理软件，请关闭代理或将必应词典加入直连名单后重试`
+        )
+      }
     }
 
     const translation: Translation = {

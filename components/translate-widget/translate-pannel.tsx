@@ -32,8 +32,6 @@ const TranslatePannel: React.FC<TranslatePannelProps> = ({
   word,
   backButton
 }) => {
-  const [errorMessage, setErrorMessage] = useState("")
-
   const [settings, setSettings] = useAtom(settingsAtom)
 
   const [isOpenSettingsForm, setIsOpenSettingsForm] = useState(false)
@@ -47,6 +45,8 @@ const TranslatePannel: React.FC<TranslatePannelProps> = ({
         : { sentenceTranslator: settings.sentenceTranslator }
     ],
     async () => {
+      let errorMessage: string | undefined
+
       if (isWord(word)) {
         try {
           return {
@@ -54,17 +54,14 @@ const TranslatePannel: React.FC<TranslatePannelProps> = ({
             translator: settings.wordTranslator
           } as const
         } catch (error) {
-          setErrorMessage(
-            `${error.message}，已改用${translators[
-              settings.sentenceTranslator
-            ].getTitle()}`
-          )
+          errorMessage = `${error.message}，或请在设置中改用其他查词服务`
         }
       }
 
       return {
         ...(await translators[settings.sentenceTranslator].translate(word)),
-        translator: settings.sentenceTranslator
+        translator: settings.sentenceTranslator,
+        errorMessage
       } as const
     },
     {
@@ -92,7 +89,7 @@ const TranslatePannel: React.FC<TranslatePannelProps> = ({
             await playSound(src)
           }
         } catch (error) {
-          setErrorMessage(error.message)
+          // empty
         }
       }
       play()
@@ -108,7 +105,7 @@ const TranslatePannel: React.FC<TranslatePannelProps> = ({
         try {
           playSound(await item.getAudioSrc())
         } catch (error) {
-          setErrorMessage(error.message)
+          // empty
         }
       }}>
       {item.type === "en-US" ? <USIcon /> : <UKIcon />}
@@ -132,16 +129,11 @@ const TranslatePannel: React.FC<TranslatePannelProps> = ({
 
   return (
     <div className="text-slate-900 dark:text-white px-4 pb-4">
-      {!!errorMessage && (
+      {!!(data as any).errorMessage && (
         <div className="alert alert-warning rounded py-3 px-2 shadow-lg text-sm mt-3">
           <div className="flex">
             <InformationCircleIcon className="w-5 h-5" />
-            <span className="flex-1.0">{errorMessage}</span>
-          </div>
-          <div className="flex-none">
-            <button className="btn btn-xs" onClick={() => setErrorMessage("")}>
-              关闭
-            </button>
+            <span className="flex-1">{(data as any).errorMessage}</span>
           </div>
         </div>
       )}
