@@ -45,7 +45,7 @@ export default forwardRef<SVGSVGElement, FloatingButtonProps>(
 
       await sleep(0)
 
-      const { text } = getSelection(ev)
+      const text = getSelection(ev)?.text
 
       if (
         !text ||
@@ -114,6 +114,7 @@ export default forwardRef<SVGSVGElement, FloatingButtonProps>(
           display: open ? "block" : "none"
         }}
         onMouseDown={(ev) => {
+          ev.stopPropagation()
           ev.preventDefault()
           onConfirmRef.current(ev)
         }}>
