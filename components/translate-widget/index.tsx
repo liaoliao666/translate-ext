@@ -1,7 +1,7 @@
 import type { ReferenceElement } from "@floating-ui/react-dom"
 import { ChevronLeftIcon } from "@heroicons/react/solid"
 import { last } from "lodash-es"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useEvent, useKey } from "react-use"
 
 import Empty from "~components/empty"
@@ -26,18 +26,20 @@ const TranslateWidget = () => {
   const translateButtonRef = useRef<SVGSVGElement>()
 
   useEvent("mouseup", async (ev) => {
-    const target = isFirefox() ? ev.originalTarget : ev.path[0]
-
-    if (
-      !(
-        poperRef.current?.contains(target) ||
-        translateButtonRef.current?.contains(target)
-      )
-    ) {
-      const selection = window.getSelection()
-      await sleep(0)
-      if (!selection?.toString()) {
-        setWords([])
+    // const target = isFirefox() ? ev.originalTarget : ev.path && ev.path[0]
+    if (isFirefox()) {
+      const target = ev.originalTarget
+      if (
+        !(
+          poperRef.current?.contains(target) ||
+          translateButtonRef.current?.contains(target)
+        )
+      ) {
+        const selection = window.getSelection()
+        await sleep(0)
+        if (!selection?.toString()) {
+          setWords([])
+        }
       }
     }
   })
@@ -45,6 +47,16 @@ const TranslateWidget = () => {
   useKey("Escape", () => {
     setWords([])
   })
+
+  useEffect(() => {
+    if (words.length > 0) {
+      document.addEventListener('mousedown', clear)
+    }
+  }, [words])
+  function clear() {
+    setWords([])
+    document.removeEventListener('mousedown', clear)
+  }
 
   return (
     <>

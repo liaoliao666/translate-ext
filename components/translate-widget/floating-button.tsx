@@ -3,6 +3,7 @@ import clsx from "clsx"
 import { forwardRef, useEffect, useRef, useState } from "react"
 import { useEvent, useLatest } from "react-use"
 import audioHtmlUrl from "url:./play-sound/audio.html"
+import  './floating-button.css'
 
 import { getSelection } from "~utils/get-selection"
 import { sleep } from "~utils/sleep"
@@ -45,7 +46,7 @@ export default forwardRef<SVGSVGElement, FloatingButtonProps>(
 
       await sleep(0)
 
-      const { text } = getSelection(ev)
+      const text = getSelection(ev)?.text
 
       if (
         !text ||
@@ -111,8 +112,9 @@ export default forwardRef<SVGSVGElement, FloatingButtonProps>(
           top: y ?? 0,
           left: x ?? 0,
           zIndex: 1050,
-          display: open ? "block" : "none"
+          display: open ? "block" : "none",
         }}
+        className={"floatingButton__enter"}
         onMouseDown={(ev) => {
           ev.preventDefault()
           onConfirmRef.current(ev)

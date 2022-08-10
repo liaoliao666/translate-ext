@@ -1,0 +1,5 @@
+.floatingButton__enter:hover {
+    background-color: black;
+    opacity: .5;
+    /* border-radius: 50%; */
+}
