@@ -26,22 +26,21 @@ const TranslateWidget = () => {
   const translateButtonRef = useRef<SVGSVGElement>()
 
   useEvent("mouseup", async (ev) => {
-    // const target = isFirefox() ? ev.originalTarget : ev.path && ev.path[0]
-    if (isFirefox()) {
-      const target = ev.originalTarget
-      if (
-        !(
-          poperRef.current?.contains(target) ||
-          translateButtonRef.current?.contains(target)
-        )
-      ) {
-        const selection = window.getSelection()
-        await sleep(0)
-        if (!selection?.toString()) {
-          setWords([])
-        }
+    const target = isFirefox() ? ev.originalTarget : (ev.path || ev.composedPath())[0]
+
+    if (
+      !(
+        poperRef.current?.contains(target) ||
+        translateButtonRef.current?.contains(target)
+      )
+    ) {
+      const selection = window.getSelection()
+      await sleep(0)
+      if (!selection?.toString()) {
+        setWords([])
       }
     }
+
   })
 
   useKey("Escape", () => {
