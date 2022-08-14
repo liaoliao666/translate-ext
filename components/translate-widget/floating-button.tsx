@@ -113,7 +113,7 @@ export default forwardRef<SVGSVGElement, FloatingButtonProps>(
           zIndex: 1050,
           display: open ? "block" : "none",
         }}
-        className={"hover:bg-black hover:bg-opacity-50"}
+        className="hover:bg-black hover:bg-opacity-50"
         onMouseDown={(ev) => {
           ev.preventDefault()
           onConfirmRef.current(ev)
