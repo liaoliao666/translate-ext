@@ -26,7 +26,9 @@ const TranslateWidget = () => {
   const translateButtonRef = useRef<SVGSVGElement>()
 
   useEvent("mouseup", async (ev) => {
-    const target = isFirefox() ? ev.originalTarget : (ev.path || ev.composedPath())[0]
+    const target = isFirefox()
+      ? ev.originalTarget
+      : (ev.path || ev.composedPath())[0]
 
     if (
       !(
@@ -40,18 +42,11 @@ const TranslateWidget = () => {
         setWords([])
       }
     }
-
   })
 
   useKey("Escape", () => {
     setWords([])
   })
-
-  useEffect(() => {
-      document.addEventListener('mousedown', () => {
-        setWords([])
-      })
-  }, [])
 
   return (
     <>

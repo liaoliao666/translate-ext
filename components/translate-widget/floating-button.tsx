@@ -110,8 +110,8 @@ export default forwardRef<SVGSVGElement, FloatingButtonProps>(
           position: strategy,
           top: y ?? 0,
           left: x ?? 0,
-          zIndex: 1050,
-          display: open ? "block" : "none",
+          zIndex: 10050,
+          display: open ? "block" : "none"
         }}
         className="hover:bg-black hover:bg-opacity-50"
         onMouseDown={(ev) => {

@@ -10,17 +10,9 @@ import {
 } from "@floating-ui/react-dom"
 import clsx from "clsx"
 import React, { useLayoutEffect, useRef } from "react"
-import { AnimatedComponent, animated, useTransition } from "react-spring"
+import { animated, useTransition } from "react-spring"
 
 import { isFirefox } from "~utils/browser"
-
-const CompatibleDiv = ((props) =>
-  isFirefox() ? (
-    // @ts-ignored
-    <div {...props} />
-  ) : (
-    <animated.div {...props} />
-  )) as AnimatedComponent<"div">
 
 export default function FloatingBox({
   open,
@@ -114,7 +106,7 @@ export default function FloatingBox({
             position: strategy,
             top: y ?? 0,
             left: x ?? 0,
-            zIndex: 1049
+            zIndex: 10049
           }}
           ref={floating}>
           {child}
@@ -131,7 +123,7 @@ export default function FloatingBox({
             position: strategy,
             top: y ?? 0,
             left: x ?? 0,
-            zIndex: 1049
+            zIndex: 10049
           }}
           ref={floating}>
           {child}

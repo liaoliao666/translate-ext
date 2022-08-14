@@ -26,7 +26,7 @@ export default function WordSettings() {
       {createPortal(
         <div
           onMouseUp={(ev) => ev.stopPropagation()}
-          style={{ zIndex: 1051 }}
+          style={{ zIndex: 10051 }}
           className={clsx("modal", isOpen && "modal-open")}>
           <div className="modal-box">
             <h3 className="font-bold text-lg">
@@ -56,7 +56,7 @@ export default function WordSettings() {
                 </span>
               </div>
 
-              <div className="max-h-96 overflow-y-auto mt-4 text-primary">
+              <div className="max-h-96 overflow-y-auto mt-4 text-primary break-all">
                 {collectedWords.join(",")}
               </div>
 

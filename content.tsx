@@ -18,9 +18,6 @@ export const getRootContainer = () => {
   const shadowRoot = shadowHost.attachShadow({ mode: "open" })
   const style = document.createElement("style")
   style.textContent = cssText
-  shadowHost.addEventListener('mousedown', e => {
-    e.stopPropagation()
-  })
   shadowRoot.appendChild(style)
   shadowBody.appendChild(container)
   shadowBody.appendChild(floatingContainer)
