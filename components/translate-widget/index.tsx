@@ -48,14 +48,10 @@ const TranslateWidget = () => {
   })
 
   useEffect(() => {
-    if (words.length > 0) {
-      document.addEventListener('mousedown', clear)
-    }
-  }, [words])
-  function clear() {
-    setWords([])
-    document.removeEventListener('mousedown', clear)
-  }
+      document.addEventListener('mousedown', () => {
+        setWords([])
+      })
+  }, [])
 
   return (
     <>
