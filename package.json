@@ -1,7 +1,7 @@
 {
   "name": "translate-ext",
   "displayName": "小划词",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "简单、高效和好看的划词翻译浏览器插件",
   "author": "liaoxuan",
   "scripts": {
