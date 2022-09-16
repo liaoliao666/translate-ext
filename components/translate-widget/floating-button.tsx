@@ -30,7 +30,7 @@ export default forwardRef<SVGSVGElement, FloatingButtonProps>(
 
       const timer = setTimeout(() => {
         setOpen(false)
-      }, 1.5 * 1000)
+      }, 3 * 1000)
 
       return () => {
         clearTimeout(timer)
@@ -111,6 +111,8 @@ export default forwardRef<SVGSVGElement, FloatingButtonProps>(
           top: y ?? 0,
           left: x ?? 0,
           zIndex: 10050,
+          borderRadius: 3,
+          backgroundColor: "#fff",
           display: open ? "block" : "none"
         }}
         className="hover:bg-black hover:bg-opacity-50"
