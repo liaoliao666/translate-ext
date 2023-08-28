@@ -1,5 +1,5 @@
 import clsx from "clsx"
-import { ReactNode, useLayoutEffect, useMemo } from "react"
+import { type ReactNode, useMemo } from "react"
 
 import { useStorage } from "@plasmohq/storage"
 

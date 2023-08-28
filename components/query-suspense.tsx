@@ -1,5 +1,5 @@
-import { ComponentType, ReactNode, Suspense, SuspenseProps, lazy } from "react"
-import { ErrorBoundary, ErrorBoundaryProps } from "react-error-boundary"
+import { type ComponentType, type ReactNode, Suspense, type SuspenseProps, lazy } from "react"
+import { ErrorBoundary, type ErrorBoundaryProps } from "react-error-boundary"
 import { QueryErrorResetBoundary } from "react-query"
 
 export type QuerySuspenseProps = ErrorBoundaryProps & {

@@ -1,5 +1,6 @@
+import { NextUIProvider } from "@nextui-org/react"
 import cssText from "data-text:~/style.css"
-import type { PlasmoContentScript } from "plasmo"
+import type { PlasmoCSConfig } from "plasmo"
 import { QueryClient, QueryClientProvider } from "react-query"
 import "webextension-polyfill"
 
@@ -35,16 +36,18 @@ const queryClient = new QueryClient({
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <DarkModeProvider target={shadowBody}>
-        <TranslateWidget />
-      </DarkModeProvider>
+      <NextUIProvider>
+        <DarkModeProvider target={shadowBody}>
+          <TranslateWidget />
+        </DarkModeProvider>
+      </NextUIProvider>
     </QueryClientProvider>
   )
 }
 
-export const config: PlasmoContentScript = {
-  matches: ["<all_urls>"],
-  // matches: ["https://github.com/*"],
+export const config: PlasmoCSConfig = {
+  // matches:["<all_urls>"],
+  matches: ["https://nextui.org/*"],
   all_frames: true
 }
 

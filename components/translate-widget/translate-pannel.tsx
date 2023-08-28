@@ -138,7 +138,7 @@ const TranslatePannel: React.FC<TranslatePannelProps> = ({
         </div>
       )}
 
-      <div className="sticky top-0 z-10 pt-4">
+      <div className="sticky top-0 z-10 pt-4 bg-background">
         <div className="flex items-center">
           {backButton}
 

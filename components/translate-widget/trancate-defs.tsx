@@ -1,4 +1,3 @@
-import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/solid"
 import { Button } from "@nextui-org/react"
 import clsx from "clsx"
 import { useState } from "react"
@@ -56,14 +55,7 @@ const TrancateDefs: React.FC<{
             variant="light"
             onClick={() => {
               setIsOpen(!isOpen)
-            }}
-            startContent={
-              isOpen ? (
-                <ChevronUpIcon className="w-5 h-5" />
-              ) : (
-                <ChevronDownIcon className="w-5 h-5" />
-              )
-            }>
+            }}>
             {isOpen ? "收起更多" : "查看更多"}
           </Button>
         </div>

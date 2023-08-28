@@ -66,11 +66,11 @@ const SettingsForm: React.FC<{
 
   return (
     <div>
-      <CardHeader className="flex justify-between">
+      <CardHeader className="flex justify-between pb-2">
         设置 <WordSettings />
       </CardHeader>
 
-      <CardBody className="gap-y-2">
+      <div className="flex flex-col px-3 gap-y-1">
         <Controller
           control={control}
           name="autoplay"
@@ -78,7 +78,7 @@ const SettingsForm: React.FC<{
             <RadioGroup
               value={value}
               onValueChange={onChange}
-              label="自动朗读"
+              label={<span className="text-sm">自动朗读</span>}
               orientation="horizontal"
               size="sm">
               {autoplayOptions.map((item) => (
@@ -97,7 +97,7 @@ const SettingsForm: React.FC<{
             <RadioGroup
               value={value ? "1" : "0"}
               onValueChange={(v) => onChange(v === "1")}
-              label="英文释义"
+              label={<span className="text-sm">英文释义</span>}
               orientation="horizontal"
               size="sm">
               {[
@@ -125,7 +125,7 @@ const SettingsForm: React.FC<{
             <RadioGroup
               value={value}
               onValueChange={onChange}
-              label="查词服务"
+              label={<span className="text-sm">查词服务</span>}
               orientation="horizontal"
               size="sm">
               {wordTranslatorOptions.map((item) => (
@@ -144,7 +144,7 @@ const SettingsForm: React.FC<{
             <RadioGroup
               value={value}
               onValueChange={onChange}
-              label="查词服务"
+              label={<span className="text-sm">查词服务</span>}
               orientation="horizontal"
               size="sm">
               {sentenceTranslatorOptions.map((item) => (
@@ -155,16 +155,16 @@ const SettingsForm: React.FC<{
             </RadioGroup>
           )}
         />
-      </CardBody>
+      </div>
 
-      <CardFooter className="justify-center gap-4">
+      <div className="py-4 flex justify-center gap-4">
         <Button color="default" size="sm" onClick={onCancel}>
           取消
         </Button>
         <Button color="primary" size="sm" onClick={handleSubmit(onSubmit)}>
           确认
         </Button>
-      </CardFooter>
+      </div>
     </div>
   )
 }
