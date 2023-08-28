@@ -1,13 +1,18 @@
+const { nextui } = require("@nextui-org/react")
+
 /** @type {import('tailwindcss/tailwind-config').TailwindConfig} */
 module.exports = {
-  darkMode: ["class", '[data-theme="dark"]'],
-  content: ["./**/*.{ts,tsx}"],
+  darkMode: ["class"],
+  content: [
+    "./**/*.{ts,tsx}",
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
+  ],
   theme: {
     fontSize: {
-      xs: "12px",
-      sm: "14px",
-      base: "16px",
-      lg: "18px",
+      xs: ["12px", "16px"],
+      sm: ["14px", "20px"],
+      base: ["16px", "24px"],
+      lg: ["18px", "28px"],
       xl: "20px",
       "2xl": "24px",
       "3xl": "30px",
@@ -66,5 +71,20 @@ module.exports = {
       }
     }
   },
-  plugins: [require("daisyui")]
+  plugins: [
+    nextui({
+      fontSize: {
+        tiny: "12px",
+        small: "14px",
+        medium: "16px",
+        large: "18px"
+      },
+      lineHeight: {
+        tiny: "16px",
+        small: "18px",
+        medium: "24px",
+        large: "28px"
+      }
+    })
+  ]
 }

@@ -1,5 +1,13 @@
+import {
+  Button,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Radio,
+  RadioGroup
+} from "@nextui-org/react"
 import type { ReactNode } from "react"
-import { useForm } from "react-hook-form"
+import { Controller, useForm } from "react-hook-form"
 
 import type { Settings } from "~store/settings"
 
@@ -52,123 +60,111 @@ const SettingsForm: React.FC<{
   onSubmit: (settings: Settings) => void
   onCancel: () => void
 }> = ({ defaultValues, onSubmit, onCancel }) => {
-  const { register, handleSubmit } = useForm({
-    defaultValues: {
-      ...defaultValues,
-      definition: String(+defaultValues.definition)
-    }
+  const { control, handleSubmit } = useForm({
+    defaultValues
   })
 
   return (
-    <form className="p-4">
-      <h3 className="font-bold text-lg flex justify-between items-center">
+    <div>
+      <CardHeader className="flex justify-between">
         设置 <WordSettings />
-      </h3>
+      </CardHeader>
 
-      <div className="text-sm">
-        <Field label="自动朗读">
-          {autoplayOptions.map((item) => (
-            <div key={item.value} className="form-control">
-              <label className="label cursor-pointer">
-                <input
-                  type="radio"
-                  className="radio radio-sm"
-                  name="autoplay"
-                  value={item.value}
-                  {...register("autoplay")}
-                />
-                <span className="label-text ml-2">{item.label}</span>
-              </label>
-            </div>
-          ))}
-        </Field>
+      <CardBody className="gap-y-2">
+        <Controller
+          control={control}
+          name="autoplay"
+          render={({ field: { value, onChange } }) => (
+            <RadioGroup
+              value={value}
+              onValueChange={onChange}
+              label="自动朗读"
+              orientation="horizontal"
+              size="sm">
+              {autoplayOptions.map((item) => (
+                <Radio key={item.value} value={item.value}>
+                  {item.label}
+                </Radio>
+              ))}
+            </RadioGroup>
+          )}
+        />
 
-        <Field label="英文释义">
-          {[
-            {
-              label: "开启",
-              value: "1"
-            },
-            {
-              label: "关闭",
-              value: "0"
-            }
-          ].map((item) => (
-            <div key={+item.value} className="form-control">
-              <label className="label cursor-pointer">
-                <input
-                  type="radio"
-                  className="radio radio-sm"
-                  name="definition"
-                  value={item.value}
-                  {...register("definition")}
-                />
-                <span className="label-text ml-2">{item.label}</span>
-              </label>
-            </div>
-          ))}
-        </Field>
+        <Controller
+          control={control}
+          name="definition"
+          render={({ field: { value, onChange } }) => (
+            <RadioGroup
+              value={value ? "1" : "0"}
+              onValueChange={(v) => onChange(v === "1")}
+              label="英文释义"
+              orientation="horizontal"
+              size="sm">
+              {[
+                {
+                  label: "开启",
+                  value: "1"
+                },
+                {
+                  label: "关闭",
+                  value: "0"
+                }
+              ].map((item) => (
+                <Radio key={item.value} value={item.value}>
+                  {item.label}
+                </Radio>
+              ))}
+            </RadioGroup>
+          )}
+        />
 
-        <Field label="查词服务">
-          {wordTranslatorOptions.map((item) => (
-            <div key={item.value} className="form-control">
-              <label className="label cursor-pointer">
-                <input
-                  type="radio"
-                  className="radio radio-sm"
-                  name="wordTranslator"
-                  value={item.value}
-                  {...register("wordTranslator")}
-                />
-                <span className="label-text ml-2">{item.label}</span>
-              </label>
-            </div>
-          ))}
-        </Field>
+        <Controller
+          control={control}
+          name="wordTranslator"
+          render={({ field: { value, onChange } }) => (
+            <RadioGroup
+              value={value}
+              onValueChange={onChange}
+              label="查词服务"
+              orientation="horizontal"
+              size="sm">
+              {wordTranslatorOptions.map((item) => (
+                <Radio key={item.value} value={item.value}>
+                  {item.label}
+                </Radio>
+              ))}
+            </RadioGroup>
+          )}
+        />
 
-        <Field label="查句服务">
-          {sentenceTranslatorOptions.map((item) => (
-            <div key={item.value} className="form-control">
-              <label className="label cursor-pointer">
-                <input
-                  type="radio"
-                  className="radio radio-sm"
-                  name="sentenceTranslator"
-                  value={item.value}
-                  {...register("sentenceTranslator")}
-                />
-                <span className="label-text ml-2">{item.label}</span>
-              </label>
-            </div>
-          ))}
-        </Field>
+        <Controller
+          control={control}
+          name="sentenceTranslator"
+          render={({ field: { value, onChange } }) => (
+            <RadioGroup
+              value={value}
+              onValueChange={onChange}
+              label="查词服务"
+              orientation="horizontal"
+              size="sm">
+              {sentenceTranslatorOptions.map((item) => (
+                <Radio key={item.value} value={item.value}>
+                  {item.label}
+                </Radio>
+              ))}
+            </RadioGroup>
+          )}
+        />
+      </CardBody>
 
-        <div className="flex justify-center gap-4 mt-4">
-          <button className="btn btn-sm btn-outline" onClick={onCancel}>
-            取消
-          </button>
-          <button
-            className="btn btn-sm"
-            type="submit"
-            onClick={handleSubmit((values) => {
-              onSubmit({
-                ...values,
-                definition: !!+values.definition
-              })
-            })}>
-            确认
-          </button>
-        </div>
-      </div>
-    </form>
-  )
-}
-
-function Field({ label, children }: { label: string; children: ReactNode }) {
-  return (
-    <div className="flex items-center">
-      <label className="mr-2">{label}</label>
-      <div className="flex gap-2">{children}</div>
+      <CardFooter className="justify-center gap-4">
+        <Button color="default" size="sm" onClick={onCancel}>
+          取消
+        </Button>
+        <Button color="primary" size="sm" onClick={handleSubmit(onSubmit)}>
+          确认
+        </Button>
+      </CardFooter>
     </div>
   )
 }

@@ -1,3 +1,10 @@
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter
+} from "@nextui-org/react"
 import clsx from "clsx"
 import { useAtom } from "jotai"
 import { useState } from "react"
@@ -13,67 +20,72 @@ export default function WordSettings() {
   const [cleared, setCleared] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
 
+  console.log("isOpen", isOpen)
+
   return (
     <>
-      <span
-        className="text-sm text-primary hover:opacity-80 cursor-pointer"
+      <Button
+        variant="light"
+        size="sm"
+        color="primary"
         onClick={() => {
           setIsOpen(true)
         }}>
         已记单词({collectedWords.length})
-      </span>
+      </Button>
 
-      {createPortal(
-        <div
-          onMouseUp={(ev) => ev.stopPropagation()}
-          style={{ zIndex: 10051 }}
-          className={clsx("modal", isOpen && "modal-open")}>
-          <div className="modal-box">
-            <h3 className="font-bold text-lg">
-              已记单词({collectedWords.length})
-            </h3>
-            <div className="py-4">
-              <div className="flex gap-2">
-                <CopyToClipboard text={collectedWords.join(",")}>
-                  <span
-                    className="btn btn-xs"
-                    onClick={() => {
-                      setCopied(true)
-                    }}>
-                    {copied ? "已复制" : "复制单词"}
-                  </span>
-                </CopyToClipboard>
+      <Modal
+        portalContainer={floatingContainer}
+        onMouseUp={(ev) => ev.stopPropagation()}
+        classNames={{
+          wrapper: "z-[10051]"
+        }}
+        isOpen={isOpen}
+        onOpenChange={setIsOpen}
+        scrollBehavior="inside"
+        title={`已记单词(${collectedWords.length})`}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalBody>
+                <div className="py-4">
+                  <div className="flex gap-2">
+                    <CopyToClipboard text={collectedWords.join(",")}>
+                      <Button
+                        size="sm"
+                        onClick={() => {
+                          setCopied(true)
+                        }}>
+                        {copied ? "已复制" : "复制单词"}
+                      </Button>
+                    </CopyToClipboard>
 
-                <span
-                  className="btn btn-xs"
-                  onClick={() => {
-                    if (window.confirm("是否确认清空单词？")) {
-                      setCollectedWords([])
-                      setCleared(true)
-                    }
-                  }}>
-                  {cleared ? "已清空" : "清空单词"}
-                </span>
-              </div>
+                    <Button
+                      size="sm"
+                      onClick={() => {
+                        if (window.confirm("是否确认清空单词？")) {
+                          setCollectedWords([])
+                          setCleared(true)
+                        }
+                      }}>
+                      {cleared ? "已清空" : "清空单词"}
+                    </Button>
+                  </div>
 
-              <div className="max-h-96 overflow-y-auto mt-4 text-primary break-all">
-                {collectedWords.join(",")}
-              </div>
-
-              <div className="modal-action">
-                <label
-                  className="btn"
-                  onClick={() => {
-                    setIsOpen(false)
-                  }}>
+                  <div className="mt-4 text-primary break-all">
+                    {collectedWords.join(",")}
+                  </div>
+                </div>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="primary" onPress={onClose}>
                   确定
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>,
-        floatingContainer
-      )}
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </>
   )
 }

@@ -1,5 +1,6 @@
 import type { ReferenceElement } from "@floating-ui/react-dom"
 import { ChevronLeftIcon } from "@heroicons/react/solid"
+import { Button } from "@nextui-org/react"
 import { last } from "lodash-es"
 import { useEffect, useRef, useState } from "react"
 import { useEvent, useKey } from "react-use"
@@ -80,8 +81,9 @@ const TranslateWidget = () => {
                     <div>{error.message}</div>
                     <div className="mt-2 text-center">
                       {words.length > 1 ? (
-                        <button
-                          className="btn btn-primary btn-xs"
+                        <Button
+                          color="primary"
+                          size="sm"
                           onClick={() => {
                             resetErrorBoundary()
                             const newWords = words.slice()
@@ -89,13 +91,14 @@ const TranslateWidget = () => {
                             setWords(newWords)
                           }}>
                           返回上一个单词
-                        </button>
+                        </Button>
                       ) : (
-                        <button
-                          className="btn btn-primary btn-xs"
+                        <Button
+                          color="primary"
+                          size="sm"
                           onClick={resetErrorBoundary}>
                           再试一次
-                        </button>
+                        </Button>
                       )}
                     </div>
                   </>

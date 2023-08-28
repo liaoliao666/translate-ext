@@ -1,3 +1,4 @@
+import clsx from "clsx"
 import { ReactNode, useLayoutEffect, useMemo } from "react"
 
 import { useStorage } from "@plasmohq/storage"
@@ -14,11 +15,6 @@ export const DarkModeProvider: React.FC<{
   const systemTheme = useSystemTheme()
   const isDarkMode = (theme === "auto" ? systemTheme : theme) === "dark"
 
-  useLayoutEffect(() => {
-    const el = target || document.documentElement
-    el.dataset.theme = isDarkMode ? "dark" : "light"
-  }, [isDarkMode, target])
-
   const value = useMemo(() => {
     return {
       isDarkMode,
@@ -29,7 +25,7 @@ export const DarkModeProvider: React.FC<{
 
   return (
     <DarkModeContext.Provider value={value}>
-      {children}
+      <div className={clsx(isDarkMode && "dark")}>{children}</div>
     </DarkModeContext.Provider>
   )
 }

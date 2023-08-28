@@ -128,7 +128,7 @@ const TranslatePannel: React.FC<TranslatePannelProps> = ({
     )
 
   return (
-    <div className="text-slate-900 dark:text-white px-4 pb-4">
+    <div className="px-4 pb-4">
       {!!(data as any).errorMessage && (
         <div className="alert alert-warning rounded py-3 px-2 shadow-lg text-sm mt-3">
           <div className="flex">
@@ -138,7 +138,7 @@ const TranslatePannel: React.FC<TranslatePannelProps> = ({
         </div>
       )}
 
-      <div className="sticky top-0 bg-white dark:bg-slate-900 z-10 pt-4">
+      <div className="sticky top-0 z-10 pt-4">
         <div className="flex items-center">
           {backButton}
 
