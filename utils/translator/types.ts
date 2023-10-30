@@ -18,7 +18,7 @@ export abstract class Translator {
   private phonetic: Phonetic
   private from: Lang
   private to: Lang
-  isDenied?: boolean
+  isDenied: boolean = true
 
   constructor() {
     this.phonetic = "en-GB"

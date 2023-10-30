@@ -3,7 +3,7 @@ import googleIco from "data-base64:~assets/google.ico"
 import { paramsSerializer } from "~utils/params-serializer"
 import { request } from "~utils/request"
 
-import { Phonetic, Translation, Translator } from "./types"
+import { type Phonetic, type Translation, Translator } from "./types"
 
 type Region = "cn" | "com"
 
@@ -117,6 +117,8 @@ class GoogleTranslator extends Translator {
       const sentences = res.sentences?.slice() || []
       const phonetic = sentences.pop()?.src_translit
       const word = sentences.map((item) => item.orig).join(" ")
+
+      this.isDenied = false
 
       return {
         phonetics: [

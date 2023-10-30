@@ -48,13 +48,17 @@ const TranslatePannel: React.FC<TranslatePannelProps> = ({
       let errorMessage: string | undefined
 
       if (isWord(word)) {
+        const wordTranslator = translators[settings.wordTranslator]
+
         try {
           return {
-            ...(await translators[settings.wordTranslator].translate(word)),
+            ...(await wordTranslator.translate(word)),
             translator: settings.wordTranslator
           } as const
         } catch (error) {
-          errorMessage = `${error.message}，或请在设置中改用其他查词服务`
+          if (wordTranslator.isDenied) {
+            errorMessage = `${error.message}，或请在设置中改用其他查词服务`
+          }
         }
       }
 
@@ -138,7 +142,7 @@ const TranslatePannel: React.FC<TranslatePannelProps> = ({
         </div>
       )}
 
-      <div className="sticky top-0 z-10 pt-4 bg-background">
+      <div className="sticky top-0 z-10 pt-4 bg-content1">
         <div className="flex items-center">
           {backButton}
 

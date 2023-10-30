@@ -113,9 +113,7 @@ const TranslateWidget = () => {
                     <div
                       className="mr-2 hover:opacity-80 text-slate-400 dark:text-slate-500 text-base cursor-pointer flex items-center"
                       onClick={() => {
-                        const newWords = words.slice()
-                        newWords.pop()
-                        setWords(newWords)
+                        setWords(words.slice(0, -1))
                       }}>
                       <ChevronLeftIcon className="w-6 h-6" />
                       返回

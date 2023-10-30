@@ -1,4 +1,3 @@
-import clsx from "clsx"
 import { type ReactNode, useMemo } from "react"
 
 import { useStorage } from "@plasmohq/storage"
@@ -9,13 +8,19 @@ import useSystemTheme from "./use-system-theme"
 
 export const DarkModeProvider: React.FC<{
   children: ReactNode
-  target?: HTMLElement
+  target: HTMLElement
 }> = ({ children, target }) => {
   const [theme, setTheme] = useStorage<Theme>("theme", "auto")
   const systemTheme = useSystemTheme()
   const isDarkMode = (theme === "auto" ? systemTheme : theme) === "dark"
 
   const value = useMemo(() => {
+    const currTheme = isDarkMode ? "dark" : "light";
+    const prevTheme = currTheme === "light" ? "dark" : "light";
+
+    target.classList.remove(prevTheme);
+    target.classList.add(currTheme);
+
     return {
       isDarkMode,
       theme,
@@ -25,7 +30,7 @@ export const DarkModeProvider: React.FC<{
 
   return (
     <DarkModeContext.Provider value={value}>
-      <div className={clsx(isDarkMode && "dark")}>{children}</div>
+      {children}
     </DarkModeContext.Provider>
   )
 }

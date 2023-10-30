@@ -47,7 +47,7 @@ const App = () => {
 
 export const config: PlasmoCSConfig = {
   // matches:["<all_urls>"],
-  matches: ["https://nextui.org/*"],
+  matches: ["https://nextui.org/*", "https://github.com/*"],
   all_frames: true
 }
 

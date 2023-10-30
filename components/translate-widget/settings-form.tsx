@@ -67,10 +67,10 @@ const SettingsForm: React.FC<{
   return (
     <div>
       <CardHeader className="flex justify-between pb-2">
-        设置 <WordSettings />
+        <span className="text-base">设置</span> <WordSettings />
       </CardHeader>
 
-      <div className="flex flex-col px-3 gap-y-1">
+      <div className="grid grid-cols-2 gap-y-4 px-3">
         <Controller
           control={control}
           name="autoplay"

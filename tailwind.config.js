@@ -71,5 +71,22 @@ module.exports = {
       }
     }
   },
-  plugins: [nextui()]
+  plugins: [
+    nextui({
+      layout: {
+        fontSize: {
+          tiny: "12px",
+          small: "14px",
+          medium: "16px",
+          large: "18px"
+        },
+        lineHeight: {
+          tiny: "16px",
+          small: "20px",
+          medium: "24px",
+          large: "28px"
+        }
+      }
+    })
+  ]
 }

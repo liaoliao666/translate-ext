@@ -3,7 +3,7 @@ import { isEmpty } from "lodash-es"
 
 import { request } from "~utils/request"
 
-import { Phonetic, Translation, Translator } from "./types"
+import { type Phonetic, type Translation, Translator } from "./types"
 
 class BingTranslator extends Translator {
   constructor() {
@@ -32,6 +32,7 @@ class BingTranslator extends Translator {
           url: "https://cn.bing.com/dict/?mkt=zh-cn",
           responseType: "text"
         }).then((text) => new DOMParser().parseFromString(text, "text/html"))
+        
         return this.translate(text, true)
       } else {
         throw new Error(
@@ -57,8 +58,7 @@ class BingTranslator extends Translator {
         const value = e.textContent.match(/\[(.+)\]/)?.[1]
         const audio = e.nextElementSibling
           ?.querySelector("a")
-          ?.getAttribute("onclick")
-          .match(/'(http[^']+)'/)?.[1]
+          ?.getAttribute("data-mp3link")
 
         if (!value && !audio) return
 
@@ -106,6 +106,8 @@ class BingTranslator extends Translator {
         })
       })
     }
+
+    this.isDenied = false
 
     return translation
   }
