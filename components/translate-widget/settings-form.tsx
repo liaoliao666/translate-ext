@@ -144,7 +144,7 @@ const SettingsForm: React.FC<{
             <RadioGroup
               value={value}
               onValueChange={onChange}
-              label={<span className="text-sm">查词服务</span>}
+              label={<span className="text-sm">查句服务</span>}
               orientation="horizontal"
               size="sm">
               {sentenceTranslatorOptions.map((item) => (
@@ -157,7 +157,7 @@ const SettingsForm: React.FC<{
         />
       </div>
 
-      <div className="py-4 flex justify-center gap-4">
+      <div className="py-4 mt-4 flex justify-center gap-4">
         <Button color="default" size="sm" onClick={onCancel}>
           取消
         </Button>

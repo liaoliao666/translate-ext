@@ -44,8 +44,6 @@
     "host_permissions": [
       "https://*/*"
     ],
-    "permissions": [
-      "activeTab"
-    ]
+    "permissions": []
   }
 }
