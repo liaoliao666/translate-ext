@@ -40,6 +40,11 @@
     "tailwindcss": "^3.3.3",
     "typescript": "5.2.2"
   },
+  "pnpm": {
+    "overrides": {
+      "@parcel/runtime-js": "2.8.3"
+    }
+  },
   "manifest": {
     "host_permissions": [
       "https://*/*"
